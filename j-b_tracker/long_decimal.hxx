@@ -8,6 +8,10 @@
 #include <cinttypes>
 #include <cstdlib>
 
+
+// returns the multiple of 10 through 10^n
+size_t pow10(size_t);
+
 struct doublet {
   size_t original_number;
   size_t second_number;
@@ -22,20 +26,11 @@ private:
   bool is_signed;
   size_t natural_number;
   size_t decimal;
+  size_t decimal_count;
 
   doublet pair_of_numbers_decimal_adjusted(const LongDecimal& this_obj, const LongDecimal& other) const {
-    // Figure out lenght of decimal parts to convert the numbers to integers
-    size_t decimal_places_to_move = std::max(std::log10(this_obj.decimal), std::log10(other.decimal));
-
-    if (decimal_places_to_move < 0)
-      throw std::runtime_error("Decimal places to move cannot be negative");
-    
-    // Convert both numbers to integers by shifting decimal places
-    // if (decimal_places_to_move != 0)
-    size_t temp_this = this_obj.natural_number * std::pow(10, decimal_places_to_move) + this_obj.decimal; 
-    size_t temp_other = other.natural_number * std::pow(10, decimal_places_to_move) + other.decimal;
-    
-    return doublet(temp_this, temp_other); 
+    return doublet(this_obj.natural_number * pow10(this_obj.decimal_count) + this_obj.decimal,
+                   other.natural_number * pow10(other.decimal_count) + other.decimal); 
   }
 
 public:
@@ -47,11 +42,12 @@ public:
   size_t get_natural_number() const { return natural_number; }
   size_t get_decimal() const { return decimal; }
   bool get_is_signed() const { return is_signed; }
-
+  size_t get_decimal_digits(size_t value)const { return decimal_count; }
   
   std::string output() const;
+  size_t calculate_decimal_digits(size_t);
 };
 
-// size_t ipow10(size_t);
+
 
 #endif  // LONG_DECIMAL_HXX
