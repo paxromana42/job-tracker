@@ -46,7 +46,7 @@ inline LongDecimal LongDecimal::operator*(const LongDecimal& multiplicand) const
   return LongDecimal(this->is_signed != multiplicand.is_signed, result_natural, result_decimal);
 };
 
-
+// Comment for the commit
 
 
 inline std::string LongDecimal::output() const{
