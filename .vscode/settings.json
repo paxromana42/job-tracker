@@ -1,3 +1,7 @@
 {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "cmake.sourceDirectory": "C:/Users/ega_d/OneDrive/Documents/workspace/job_tracker/j-b_tracker",
+    "cSpell.words": [
+        "webgpu"
+    ]
 }
