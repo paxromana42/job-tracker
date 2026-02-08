@@ -4,6 +4,8 @@ Using the Google Style guide, I want to make proper C++ app to manage all my job
 
 [Here](https://google.github.io/styleguide/cppguide.html) is the style guide for reference.
 
+I am also using this GUI: [WebGPU](https://eliemichel.github.io/LearnWebGPU/getting-started/index.html)
+
 The Structure is something like this:
 - python old
   - Python app that is basically a web gui that tracks the jobs. What this project should have stayed as, but I got curious on how to make the app from scratch.

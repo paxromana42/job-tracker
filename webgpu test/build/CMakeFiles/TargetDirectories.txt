@@ -1,3 +1,0 @@
-C:/Users/ega_d/OneDrive/Documents/workspace/job_tracker/webgpu test/build/CMakeFiles/App.dir
-C:/Users/ega_d/OneDrive/Documents/workspace/job_tracker/webgpu test/build/CMakeFiles/edit_cache.dir
-C:/Users/ega_d/OneDrive/Documents/workspace/job_tracker/webgpu test/build/CMakeFiles/rebuild_cache.dir
