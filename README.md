@@ -1,15 +1,38 @@
 # J*b Tracker
 
-Using the Google Style guide, I want to make proper C++ app to manage all my job application. I have a working draft in python I will also include in this project, and I pray they are of use to one another.
+Redoing this to be more straight forward. We are going to make a usable project in python first, then eventually play with it in C++. I can't deal with C++ GUI stuff right now.
 
-[Here](https://google.github.io/styleguide/cppguide.html) is the style guide for reference.
+I still don't know how to do apps in Python, but I can do scripts. Let's see if that's enough.
 
-I am also using this GUI: [WebGPU](https://eliemichel.github.io/LearnWebGPU/getting-started/index.html)
+## Directory Structure
 
-The Structure is something like this:
-- python old
-  - Python app that is basically a web gui that tracks the jobs. What this project should have stayed as, but I got curious on how to make the app from scratch.
-- webgpu test
-  - Testing making a working gui in webgpu, just because I hate myself.
-- j*b-tracker
-  - Final app marrying what I will learn from both of these modules.
+```bash
+Job Tracker
+├───j-b_tracker_app // This is my future C++ app, probably really efficient. Empty for now.
+├───j-b_pythonista  // My python draft so I can actually use this right now.
+└───data            // All the data will go here.
+    ├───python      // Python generated data.
+    └───real        // C++ data.
+```
+
+## Python
+
+WebGUI which will let me input job listings into a real database with logic.
+
+## C++
+
+I have no clue how this is going to work mah dude.
+
+## Common Features
+
+These are all the values the user ought to input into the forum. Maybe this will eventually be automated.
+
+### Input Values
+
+| Date | Posted | Updated | Status | Title | Company | Office | Location | Salaried | Low | High |  Likely | Want | Source | Link |
+
+|  |
+
+### Calculated Values
+
+| ID | Since_Post | Since_App | Should_Email | Distance_Home | Distance_LU | Distance_GF | H-L | H-H | Hourly | M-L | M-H | Monthly | Y-L | Y-H | Yearly |
