@@ -1,4 +1,4 @@
 
 # 'python old' is a directory that contains old Python code that is no longer in use. It is not necessary to include this directory in version control, as it may contain outdated or irrelevant code. Therefore, it is recommended to add 'python old' to the .gitignore file to prevent it from being tracked by Git.
 # Ignore the 'python old' directory
-"python old/"
+python old/
