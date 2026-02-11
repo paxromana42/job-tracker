@@ -1,5 +1,9 @@
 {
     "cSpell.words": [
         "pythonista"
+    ],
+    "python.analysis.extraPaths": [
+        "./j-b-pythonista/pages",
+        "./j-b-pythonista/functions"
     ]
 }

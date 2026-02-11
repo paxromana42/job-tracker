@@ -72,16 +72,16 @@ These are all the values the user ought to input into the forum. Maybe this will
 | App_Delta | *Post* - *Date* | No | No | How long between *Post* and *Date* |
 | In_process | *Status != (Accepted or Dismissed or Rejected)* | Yes | No | Is the application on going. |
 | Last_updated | | | | |
-| Follow-Up? | *if ('In Process' and max(Date- Update, Updated[n-1] - Updated[n]) >= Long Time) | | | |
+| Follow-Up? | *if ('In Process' and max(Date- Update, Updated[n-1] - Updated[n]) >= Long Time) | Yes | Yes | Should user send a follow-up email? |
 | Distance_Home | (Location to HOME) | No | No | Distance, either in KM or through maps, from Location to HOME |
 | Distance_Uni | (Location to UNI) | No | No | Distance, either in KM or through maps, from Location to GF |
 | Distance_GF | Location to GF | No (Maybe) | No | Distance, either in KM or through maps, from Location to GF |
 | H-L | | No | No | Low end per hour. |
-| H-H | | No | No | High end per hour |
-| Hourly | String("H-L - H-H") | No | No | Plays to user in a friendly way the |
-| M-L | | | | |
-| M-H | | | | |
-| Monthly | | | | |
-| Y-L | | | | |
-| Y-H | | | | |
-| Yearly | | | | |
+| H-H | | No | No | High end per hour. |
+| Hourly | String("H-L - H-H") | No | No | Diplays to user in a friendly way the hourly wage. |
+| M-L | | | | Low end per month. |
+| M-H | | | | High end per month. |
+| Monthly | | | | Diplays to user in a friendly way the monthly wage. |
+| Y-L | | | | Low end per month. |
+| Y-H | | | | High end per month. |
+| Yearly | | | | Diplays to user in a friendly way the yearly wage. |
