@@ -1,21 +1,21 @@
-import os
-import tkinter as tk
-
-from altair import selection
-
 import TUI as tui  # Import the menu module
 
 def main():
-    database_location = "database/app-repo.db"  # Define the path to the database file
-    selection, setting_up = tui.TUI_start(database_location)  # Start the Text User Interface (TUI)
+    database_location = "database/app-repo.db"
+    exports_location = "exports"
 
-    tui.spacing_buffer()  # Add spacing in the terminal for better readability
+    while True:
+        choice_tuple = tui.TUI_start(database_location, exports_location)
+        
+        if choice_tuple is None:
+            tui.TUI_end()
+            break
 
-    tui.main_menu(selection, setting_up, database_location)  # Call the menu function with the user's selection
+        tui.clear_screen()
+        tui.main_menu(choice_tuple, database_location)
 
-    tui.spacing_buffer()  # Add spacing in the terminal for better readability
-    tui.TUI_end()  # End the Text User Interface (TUI)
-
+        input("\nPress Enter to continue...")
+        tui.spacing_buffer()
 
 
 if __name__ == "__main__":    main()

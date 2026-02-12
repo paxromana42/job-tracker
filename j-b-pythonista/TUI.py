@@ -2,12 +2,14 @@ import os
 from unittest import case
 import pyfiglet
 import database_logic
+import csv
 
 
 # TUI
 
-def TUI_start(path_to_db):
-    exist = check_database_exists(path_to_db)  # Check if the database exists before starting the application
+def TUI_start(path_to_db, path_exports):
+    db_exist = check_database_exists(path_to_db)  # Check if the database exists before starting the application
+    export_exist = check_export_exists(path_exports)
 
     logo()  # Display the logo when starting the application
 
@@ -15,7 +17,7 @@ def TUI_start(path_to_db):
 
     print("\nPlease select an option:")
 
-    if exist:
+    if db_exist:
         print("\t1. Add a new application")
         print("\t2. View all applications")
     else:
@@ -28,7 +30,7 @@ def TUI_start(path_to_db):
     if start_input == "3":
         return
 
-    return (start_input, exist) # Return the user's selection for further processing in the main function
+    return (start_input, db_exist) # Return the user's selection for further processing in the main function
 
 
 def TUI_end():
@@ -36,27 +38,35 @@ def TUI_end():
     logo()  # Display the logo when exiting the application
     exit()
 
-def new_query():
-    pass
+def new_query(db_path):
+    print("NEW QUERY — to be implemented")
 
-def table():
-    pass
+def table(db_path):
+    print("TABLE VIEW — to be implemented")
+
 
 def spacing_buffer():
     print("\n" * 4)  # Print multiple newlines to create spacing in the terminal
 
-def main_menu(selection, new_location):
-    clear_screen()  # Clear the terminal screen before displaying the menu
-    if selection == "1" and new_location[1] == True:
-        new_query()
-    elif selection == "2 True":
-        table()
-    elif selection == "1 False":
-        create_database_file()
-    elif selection == "2 False":
-        print("Please point to an existing database file to make use of J*b Tracker.")
-        TUI_start(input("Write the path to the existing database file (absolute or relative): "))
-        return 
+def main_menu(selection_tuple, db_path):
+    choice, db_exists = selection_tuple
+
+    if db_exists:
+        if choice == "1":
+            new_query(db_path)
+        elif choice == "2":
+            table(db_path)
+        else:
+            print("Invalid choice.")
+    else:
+        if choice == "1":
+            create_database_file(db_path)
+        elif choice == "2":
+            new_path = input("Enter path to existing database: ")
+            TUI_start(new_path, "exports")
+        else:
+            print("Invalid choice.")
+
 
 def check_database_exists(path_to_db):
     if os.path.exists("database") or os.path.exists(path_to_db.split("/")[-2]):
@@ -112,5 +122,46 @@ def clear_screen():
 
 # Displays the information the J*b tracker relevant to the TUI, ommiting the C++ information in the README. This will at a minimum print the manifesto, the input fields, the calculated fields, the export options and the functions.
 def help_background():
-    print(os.open("help_info/manifesto.txt", os.O_RDONLY))
-    print("Here is information on the ")
+    with open("help_info/manifesto.txt") as f:
+        print(f.read())
+    os.system("pause")
+
+    print("Here is information on the attributes of the entities we will be storing:")
+    read_csv_safely("help_info/attributes.csv")
+    os.system("pause")
+    
+    print("Here is the information on the ")
+    read_csv_safely("help_info/attributes.csv")
+
+# I had no idea how to do this, so I got this function from here: https://www.owais.io/blog/2025-09-23_python-csv-complete-beginners-guide-terminal/
+def read_csv_safely(file_path):
+    try:
+        with open(file_path, mode='r', encoding='utf-8') as file:
+            csv_reader = csv.DictReader(file)
+            data = []
+
+            for row_num, row in enumerate(csv_reader, start=2):  # Start at 2 (after header)
+                try:
+                    # Process row with validation
+                    if not row['name'].strip():
+                        print(f"Warning: Empty name in row {row_num}")
+                        continue
+
+                    data.append(row)
+
+                except KeyError as e:
+                    print(f"Missing column {e} in row {row_num}")
+                except ValueError as e:
+                    print(f"Invalid data in row {row_num}: {e}")
+
+            return data
+
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found")
+        return []
+    except PermissionError:
+        print(f"Error: Permission denied accessing '{file_path}'")
+        return []
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return []
