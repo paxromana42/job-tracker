@@ -40,45 +40,27 @@ These are all the values the user ought to input into the forum. Maybe this will
 
 ### Input Values
 
-| Attribute | Default_Value | Type | List? | Description |
-| --- | --- | --- | --- | --- |
-| Date | Today() | Date | No (Maybe Date input) | Date of creation of App down to millisecond |
-| Posted | Today() | Date | No (Maybe Date input) | Date the App was posted on relevant medium. |
-| Updated | Today() | Date | No (Maybe Date input) | Last Date App entity was modified. Might be an array of values. |
-| Status | Applied | String | Yes | The status of the Application. Used in sorting and other logic. |
-| Title | | String | No | Name of Role in question |
-| Company | | String | No | Name of Company being applied to |
-| Office | In-person | String | Yes | Is this role in-person or some variant of remote |
-| Location | | ? | No | Where is this role. Be as specific as desired, though the Distance Formulae won't like broad answers |
-| Given | No | Boolean | Yes | Is there a listed wage range. If so, use it, if not, source of wage is GlassDoor or similar source. |
-| Salaried | No | Boolean | Yes | Is the work based on a set pay, True, or varies based on shifts served, False. |
-| Low | | Double | No | Low end of wage range |
-| High | | Double | No | High end of wage range |
-| Likely | 5 | Unsigned Integer | ~Yes (Range) | A value from 0 to 10 about how likely this role is attainable. |
-| Wanted | 5 | Unsigned Integer | ~Yes (Range) | A value from 0 to 10 about how likely this role is wanted. |
-| Source | | String | Yes | What platform did the role make itself known to the user |
-| Link | | String | No | Assuming all applications are done online (they are), then here is the hyperlink for the role. This will most likely contain many dead links as roles are removed and closed with the passage of time. |
+| Attribute      | Default_Value | Type    | Description                        |
+| -------------- | ------------- | ------- | ---------------------------------- |
+| Date           | Today()       | Date    | Date the application was entered   |
+| Posted         | Today()       | Date    | Date the job posting was found     |
+| Title          | —             | String  | Job role                           |
+| Company        | —             | String  | Employer                           |
+| Location       | —             | String  | Role location                      |
+| Source         | —             | String  | Where you found the job            |
+| Link           | —             | String  | URL to the posting                 |
+| Wage Range Min | —             | Real    | Lowest pay                         |
+| Wage Range Max | —             | Real    | Highest pay                        |
+| Pay Frequency  | hour          | String  | ‘hour’, ‘week’, ‘month’, or ‘year’ |
+| Hours per Week | 40            | Integer | Work hours per week                |
 
 ### Calculated Values
 
-| Attribute | Formula | Volatile | Return | Description |
-| --- | --- | --- | --- | --- |
-| ID | 0x*Date* | No | No | Representation of the entity. |
-| Since_Post | *Post* - TODAY() | Yes | No | How many days since role was posted. |
-| Since_Days | *Date* - TODAY() | Yes | No | How many days since app was made. |
-| App_Delta | *Post* - *Date* | No | No | How long between *Post* and *Date* |
-| In_process | *Status != (Accepted or Dismissed or Rejected)* | Yes | No | Is the application on going. |
-| Last_updated | | | | |
-| Follow-Up? | *if ('In Process' and max(Date- Update, Updated[n-1] - Updated[n]) >= Long Time) | Yes | Yes | Should user send a follow-up email? |
-| Distance_Home | (Location to HOME) | No | No | Distance, either in KM or through maps, from Location to HOME |
-| Distance_Uni | (Location to UNI) | No | No | Distance, either in KM or through maps, from Location to GF |
-| Distance_GF | Location to GF | No (Maybe) | No | Distance, either in KM or through maps, from Location to GF |
-| H-L | | No | No | Low end per hour. |
-| H-H | | No | No | High end per hour. |
-| Hourly | String("H-L - H-H") | No | No | Diplays to user in a friendly way the hourly wage. |
-| M-L | | | | Low end per month. |
-| M-H | | | | High end per month. |
-| Monthly | | | | Diplays to user in a friendly way the monthly wage. |
-| Y-L | | | | Low end per month. |
-| Y-H | | | | High end per month. |
-| Yearly | | | | Diplays to user in a friendly way the yearly wage. |
+| Derived                       | Formula                                                    |
+| ----------------------------- | ---------------------------------------------------------- |
+| Days Since Posted             | `julianday('now') - julianday(posted_at)`                  |
+| Days Since Entered            | `julianday('now') - julianday(created_at)`                 |
+| Current Status                | latest entry in `application_updates` for `application_id` |
+| Hours per Year                | `hours_per_week * 52`                                      |
+| Hourly Rate                   | depends on pay_frequency and hours_per_week                |
+| Weekly / Monthly / Yearly Pay | computed from base inputs depending on pay_frequency       |
