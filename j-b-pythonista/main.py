@@ -1,25 +1,21 @@
 import os
 import tkinter as tk
 
-import menu as m  # Import the menu module
+from altair import selection
+
+import TUI as tui  # Import the menu module
 
 def main():
+    database_location = "database/app-repo.db"  # Define the path to the database file
+    selection = tui.TUI_start(database_location)  # Start the Text User Interface (TUI)
 
-    # Create the main application window
-    root = tk.Tk()
-    root.title("J*b Tracker")  # Set window title
-    root.geometry("1000x707")  # Set window size
+    tui.spacing_buffer()  # Add spacing in the terminal for better readability
 
-    m.create_menu(root)  # Call the function to create the menu
-    job_title = tk.Entry(root, width=50)  # Create an entry widget for job title
-    job_title.pack(pady=10)  # Add some padding around the entry widget
+    tui.main_menu(selection, database_location)  # Call the menu function with the user's selection
 
-    add_button = tk.Button(root, text="Add Task", command=lambda: job_title.delete(0, tk.END))  # Button to add tasks
-    add_button.pack()  # Display the button
+    tui.spacing_buffer()  # Add spacing in the terminal for better readability
+    tui.TUI_end()  # End the Text User Interface (TUI)
 
-    
 
-    # Run the application
-    root.mainloop()
 
 if __name__ == "__main__":    main()
