@@ -3,11 +3,12 @@ from unittest import case
 import pyfiglet
 import database_logic
 import csv
+import pathlib as plib
 
 
 # TUI
 
-def TUI_start(path_to_db, path_exports):
+def TUI_start(path_to_db, path_exports="exports"):
     db_exist = check_database_exists(path_to_db)  # Check if the database exists before starting the application
     export_exist = check_export_exists(path_exports)
 
@@ -23,17 +24,19 @@ def TUI_start(path_to_db, path_exports):
     else:
         print("\t1. Create Application database file")
         print("\t2. Point to an existing database file")
-    print("\t3. Exit :)")
+    print("\t3. Help 0o0")
+    print("\t4. Exit :)")
 
     start_input = input("Enter your choice: ")  # Get user input for menu selection
 
-    if start_input == "3":
+    if start_input == "4":
         return
 
     return (start_input, db_exist) # Return the user's selection for further processing in the main function
 
 
 def TUI_end():
+    spacing_buffer()
     print("Thank you for using J*b Tracker! Goodbye!\n")
     logo()  # Display the logo when exiting the application
     exit()
@@ -44,14 +47,15 @@ def new_query(db_path):
 def table(db_path):
     print("TABLE VIEW — to be implemented")
 
-
 def spacing_buffer():
     print("\n" * 4)  # Print multiple newlines to create spacing in the terminal
 
 def main_menu(selection_tuple, db_path):
     choice, db_exists = selection_tuple
 
-    if db_exists:
+    if choice == "3":
+        help_background()
+    elif db_exists:
         if choice == "1":
             new_query(db_path)
         elif choice == "2":
@@ -60,18 +64,17 @@ def main_menu(selection_tuple, db_path):
             print("Invalid choice.")
     else:
         if choice == "1":
-            create_database_file(db_path)
+            database_logic.create_database_file(plib.Path(db_path))
         elif choice == "2":
             new_path = input("Enter path to existing database: ")
-            TUI_start(new_path, "exports")
+            TUI_start(new_path)
         else:
             print("Invalid choice.")
 
-
 def check_database_exists(path_to_db):
-    if os.path.exists("database") or os.path.exists(path_to_db.split("/")[-2]):
+    if os.path.exists("database") or os.path.exists(plib.Path(path_to_db).parent):
         print("\nDatabase folder exists.")
-        if os.path.exists(path_to_db) and path_to_db.endswith(".db"):
+        if os.path.exists(path_to_db) and plib.Path(path_to_db).name:
             print("Database file exists.")
             return True
         else:
@@ -111,11 +114,6 @@ def logo():
 
     print(separator, indented_logo,separator, sep="\n")  # Print the separator, logo, and another separator
 
-def create_database_file():
-    print("Creating database file...")
-    # Code to create the database file goes here
-    database_logic.create_database_file("database/app-repo.db")
-
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')  # Clear the terminal screen based on the operating system
 
@@ -126,12 +124,24 @@ def help_background():
         print(f.read())
     os.system("pause")
 
+    spacing_buffer()
     print("Here is information on the attributes of the entities we will be storing:")
     read_csv_safely("help_info/attributes.csv")
     os.system("pause")
-    
-    print("Here is the information on the ")
-    read_csv_safely("help_info/attributes.csv")
+
+    spacing_buffer()
+    print("Here is the information on the inputs")
+    read_csv_safely("help_info/input_fields.csv")
+    os.system("pause")
+
+    spacing_buffer()
+    print("Here is the information on the calculted returns")
+    read_csv_safely("help_info/calc_fields.csv")
+    os.system("pause")
+
+    spacing_buffer()
+    print("Here is the information on the functions in this program")
+    read_csv_safely("help_info/functions.txt")
 
 # I had no idea how to do this, so I got this function from here: https://www.owais.io/blog/2025-09-23_python-csv-complete-beginners-guide-terminal/
 def read_csv_safely(file_path):

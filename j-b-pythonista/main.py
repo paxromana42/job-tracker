@@ -6,7 +6,7 @@ def main():
 
     while True:
         choice_tuple = tui.TUI_start(database_location, exports_location)
-        
+
         if choice_tuple is None:
             tui.TUI_end()
             break

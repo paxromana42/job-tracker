@@ -1,0 +1,20 @@
+J*b Tracker
+
+A cross-platform job application tracker that begins as a Python CLI/Web prototype and eventually grows into a C++ application.
+
+This project is designed to replace an Excel-based job tracker with a structured, database-backed system that lets you:
+
+- Add and update applications
+- Track application history
+- Compute derived values like time since posting or pay conversions
+- Export data
+- Build toward a real GUI or web interface
+
+Python is used for the prototype because it allows rapid development, easy database integration, and painless migration to web frameworks like Flask or FastAPI. C++ will be targeted later for performance and native GUI work.
+
+The Python version includes:
+
+- A Text User Interface (TUI) for interactive use
+- SQL database (SQLite) for persistence
+- Business logic for calculations
+- Future optional Web GUI
