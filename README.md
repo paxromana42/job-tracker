@@ -30,16 +30,13 @@ These are all the values the user ought to input into the forum. Maybe this will
 | Aspect | Description |
 | --- | --- |
 | Attribute | An aspect of the entity. |
-| Formula | Calculation need |
+| Formula | Calculation needed. |
 | Default_Value | What is considered 'default' for the attribute in question. |
 | Volatile | Can this change, True or False. |
-| Type | Kind of data in Attribute |
+| Type | Kind of data in Attribute. |
 | Return | Is the user expecting this attribute to prompt unprompted notifications |
 | List? | Boolean value on whether the value is a list and has a distinct options csv (current plan). Has notes on whether on specific details |
 | Description | What is the attribute, not noted in program logic at this time. |
-
-| Name | Description |
-|
 
 ### Input Values
 

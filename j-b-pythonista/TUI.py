@@ -11,7 +11,7 @@ def TUI_start(path_to_db):
 
     logo()  # Display the logo when starting the application
 
-    print("\nWelcome to J*b Tracker! Your personal job application tracker. Using this tool, make sure to track all the details of your job applications.\n")  # Welcome message
+    print("\nWelcome to J*b Tracker! Your personal job application tracker. Using this tool, make sure to track all the details of your j*b applications. To protect your poor eyes, the word j*b will be censored as it should be. This is as functional as you make it, so have fun.\n")  # Welcome message
 
     print("\nPlease select an option:")
 
@@ -43,11 +43,11 @@ def table():
     pass
 
 def spacing_buffer():
-    print("\n" * 5)  # Print multiple newlines to create spacing in the terminal
+    print("\n" * 4)  # Print multiple newlines to create spacing in the terminal
 
-def main_menu(selection, database_location):
+def main_menu(selection, new_location):
     clear_screen()  # Clear the terminal screen before displaying the menu
-    if selection == "1 True":
+    if selection == "1" and new_location[1] == True:
         new_query()
     elif selection == "2 True":
         table()
@@ -56,12 +56,12 @@ def main_menu(selection, database_location):
     elif selection == "2 False":
         print("Please point to an existing database file to make use of J*b Tracker.")
         TUI_start(input("Write the path to the existing database file (absolute or relative): "))
-        
+        return 
 
 def check_database_exists(path_to_db):
-    if os.path.isdir("database"):
+    if os.path.exists("database") or os.path.exists(path_to_db.split("/")[-2]):
         print("\nDatabase folder exists.")
-        if os.path.isfile(path_to_db):
+        if os.path.exists(path_to_db) and path_to_db.endswith(".db"):
             print("Database file exists.")
             return True
         else:
@@ -71,6 +71,21 @@ def check_database_exists(path_to_db):
         print("Database folder does not exist. Creating database folder...")
         os.makedirs("database", exist_ok=True)
         print("Database folder created. Please create the database file to make use of J*b Tracker.")
+        return False
+
+def check_export_exists(path_to_exports):
+    if os.path.exists("exports"):
+        print("\nExports folder exists.", end=" ")
+        if len(os.listdir(path_to_exports)) > 0:  # Check if the exports folder is not empty:
+            print("It is not empty. There may be a conflict with existing export files. Please check the exports folder before exporting new data.")
+            return True
+        else:
+            print("It is empty! No Conflict management needed :) yet :(")
+            return False
+    else:
+        print("Exports folder does not exist. Creating exports folder...")
+        os.makedirs("exports", exist_ok=True)
+        print("Exports folder created.")
         return False
 
 def logo():
@@ -94,3 +109,8 @@ def create_database_file():
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')  # Clear the terminal screen based on the operating system
 
+
+# Displays the information the J*b tracker relevant to the TUI, ommiting the C++ information in the README. This will at a minimum print the manifesto, the input fields, the calculated fields, the export options and the functions.
+def help_background():
+    print(os.open("help_info/manifesto.txt", os.O_RDONLY))
+    print("Here is information on the ")
