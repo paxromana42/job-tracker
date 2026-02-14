@@ -1,0 +1,8 @@
+| Derived                       | Formula                                                    |
+| ----------------------------- | ---------------------------------------------------------- |
+| Days Since Posted             | `julianday('now') - julianday(posted_at)`                  |
+| Days Since Entered            | `julianday('now') - julianday(created_at)`                 |
+| Current Status                | latest entry in `application_updates` for `application_id` |
+| Hours per Year                | `hours_per_week * 52`                                      |
+| Hourly Rate                   | depends on pay_frequency and hours_per_week                |
+| Weekly / Monthly / Yearly Pay | computed from base inputs depending on pay_frequency       |

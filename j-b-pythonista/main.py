@@ -1,21 +1,17 @@
-import TUI as tui  # Import the menu module
+import TUI as tui
 
+# Main function loop
 def main():
-    database_location = "database/app-repo.db"
-    exports_location = "exports"
+    db_path = "database/app-repo.db"
 
     while True:
-        choice_tuple = tui.TUI_start(database_location, exports_location)
+        choice_tuple = tui.TUI_start(db_path)
 
-        if choice_tuple is None:
-            tui.TUI_end()
+        if not choice_tuple:
             break
 
-        tui.clear_screen()
-        tui.main_menu(choice_tuple, database_location)
+        tui.main_menu(choice_tuple, db_path)
 
-        input("\nPress Enter to continue...")
-        tui.spacing_buffer()
-
+    tui.TUI_end()
 
 if __name__ == "__main__":    main()
