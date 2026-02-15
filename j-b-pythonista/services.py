@@ -1,5 +1,7 @@
 import os
 import pathlib as plib
+import sqlite3 as sql
+import database_logic as db
 
 # Better input function that includes an escape and a protection against blank values where it is not expected.
 def safe_input(prompt, allow_empty=False):
@@ -72,3 +74,12 @@ def check_export_exists_n_empty(path_to_exports):
         print("Exports folder created.")
         return False
 
+# List all apps
+
+def list_apps(db_path):
+    conn = sql.connect(db_path)
+
+    rows = db.get_all_applications(conn)
+
+    conn.close()
+    return rows

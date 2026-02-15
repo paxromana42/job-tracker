@@ -44,6 +44,25 @@ def logo():
 def menu_renderer(db_path, export_directory, no_db, empty_exports):
     pass
 
+# ====== Table Renderer =======
+def view_applications_ui(db_path):
+    rows = ss.list_applications(db_path)
+
+    if not rows:
+        print("No applications found.")
+        ss.pause()
+        return
+
+    print("\nID | Title | Company | Pay | Created")
+    print("-" * 60)
+
+    for r in rows:
+        pay = f"{r[4]}-{r[5]} {r[6]}" if r[4] else "-"
+        print(f"{r[0]} | {r[1]} | {r[2]} | {pay} | {r[7][:10]}")
+
+    ss.pause()
+
+
 # ======= Terminal logic =======
 
 def print_wrapped(text, width=usable_terminal):

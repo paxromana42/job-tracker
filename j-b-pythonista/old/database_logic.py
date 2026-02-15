@@ -27,7 +27,7 @@ def create_database_file(accepted_path):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             
             created_at TEXT NOT NULL,
-            posted_at TEXT,  -- ✅ NEW FIELD
+            posted_at TEXT,
             
             title TEXT NOT NULL,
             company TEXT NOT NULL,
