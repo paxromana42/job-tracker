@@ -10,7 +10,7 @@ def main():
         if not choice_tuple:
             break
 
-        tui.main_menu(choice_tuple, db_path)
+        tui.main_menu(choice_tuple)
 
     tui.TUI_end()
 

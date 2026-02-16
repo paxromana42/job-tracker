@@ -45,19 +45,21 @@ def spacing_buffer():
 
 # Does the database exist?
 def check_database_exists(path_to_db):
-    if os.path.exists("database") or os.path.exists(plib.Path(path_to_db).parent):
+    if os.path.exists("database") or plib.Path(path_to_db).parent.exists():
         print("\nDatabase folder exists.")
-        if os.path.exists(path_to_db) and plib.Path(path_to_db).name:
+        if os.path.exists(path_to_db) and plib.Path(path_to_db).exists():
             print("Database file exists.")
-            return True
+            return
         else:
-            print("Database file does not exist. Please create the database file to make use of J*b Tracker.")
-            return False
+            print("Database file does not exist.", end=" ")
     else:
-        print("Database folder does not exist. Creating database folder...")
-        os.makedirs("database", exist_ok=True)
-        print("Database folder created. Please create the database file to make use of J*b Tracker.")
-        return False
+        print("Database folder does not exist.", end=" ")
+    print("Creating database directory and file...")
+    os.makedirs("database", exist_ok=True)
+    print("Database folder created.", sep=" ")
+    db.create_database_file(path_to_db)
+    print("Database file created.")
+    return
 
 def check_export_exists_n_empty(path_to_exports):
     if os.path.exists("exports"):

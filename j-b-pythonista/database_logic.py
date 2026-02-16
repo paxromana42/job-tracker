@@ -160,21 +160,42 @@ def get_all_applications(conn):
     cursor = conn.cursor()
     cursor.execute("""
         SELECT id, title, company, location,
-               wage_range_min, wage_range_max,
-               pay_frequency, created_at
+                wage_range_min, wage_range_max,
+                pay_frequency, created_at
         FROM applications
         ORDER BY created_at DESC
     """)
     return cursor.fetchall()
 
+def view_updates(db_path, application_id):
+    conn = sqlite3.connect(db_path)
 
+    for row in conn.execute("""
+        SELECT timestamp, status, note
+        FROM application_updates
+        WHERE application_id = ?
+        ORDER BY timestamp DESC
+    """, (application_id,)):
+        print(row)
+
+    conn.close()
 
 # ====== Update =========
+def insert_update(db_path, app_id, timestamp, status, note):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
 
+    cursor.execute("""
+        INSERT INTO application_updates (application_id, timestamp, status, note)
+        VALUES (?, ?, ?, ?)
+    """, (app_id, timestamp, status, note))
+
+    conn.commit()
+    conn.close()
 
 
 # ====== Delete =========
-def delete_application(conn=sqlite3, app_id=0):
+def delete_application(conn, app_id):
     cursor = conn.cursor()
     cursor.execute("DELETE FROM applications WHERE id = ?", (app_id,))
     conn.commit()

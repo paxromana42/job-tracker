@@ -15,8 +15,8 @@ usable_terminal = os.get_terminal_size().columns - 4
 # Start TUI. Take the path to database as input and the exports
 def TUI_start(path_db, path_exports="exports"):
     # Check if the relevant folders exist and make them do so if not
-    db_exist = ss.check_database_exists(path_db)
-    export_exist = ss.check_export_exists_n_empty(path_exports)
+    ss.check_database_exists(path_db)
+    ss.check_export_exists_n_empty(path_exports)
 
     # Print the Logo
     logo()
@@ -25,6 +25,7 @@ def TUI_start(path_db, path_exports="exports"):
     print_wrapped("\nWelcome to J*b Tracker! Your personal job application tracker. Using this tool, make sure to track all the details of your j*b applications. To protect your poor eyes, the word j*b will be censored as it should be. This is as functional as you make it, so have fun.\n")  # Welcome message
 
     print("\nPlease select an option:")
+    return ss.safe_input(menu_renderer)
 
 def logo():
     logo = pyfiglet.figlet_format(text="J*b Tracker")  # Create ASCII art for the application name
@@ -41,7 +42,16 @@ def logo():
 
 # Menu logic
 
-def menu_renderer(db_path, export_directory, no_db, empty_exports):
+def menu_renderer():
+    print("\t1. Add new application")
+    print("\t2. View applications")
+    print("\t3. Bulk import CSV")
+    print("\t4. Update status")
+    print("\t5. View updates")
+    print("\t6. Help")
+    print("\t7. Exit :)")
+
+def main_menu(choice):
     pass
 
 # ====== Table Renderer =======
