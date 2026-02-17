@@ -18,6 +18,8 @@ def TUI_start(path_db, path_exports="exports"):
     ss.check_database_exists(path_db)
     ss.check_export_exists_n_empty(path_exports)
 
+    follow_up_checker(path_db)
+
     # Print the Logo
     logo()
 
@@ -25,7 +27,7 @@ def TUI_start(path_db, path_exports="exports"):
     print_wrapped("\nWelcome to J*b Tracker! Your personal job application tracker. Using this tool, make sure to track all the details of your j*b applications. To protect your poor eyes, the word j*b will be censored as it should be. This is as functional as you make it, so have fun.\n")  # Welcome message
 
     print("\nPlease select an option:")
-    return ss.safe_input(menu_renderer)
+    return int(ss.safe_input(menu_renderer))
 
 def logo():
     logo = pyfiglet.figlet_format(text="J*b Tracker")  # Create ASCII art for the application name
@@ -51,10 +53,30 @@ def menu_renderer():
     print("\t6. Help")
     print("\t7. Exit :)")
 
-def main_menu(choice):
+def main_menu(choice, db_path):
+    ss.clear_screen()
+
+    match choice:
+        case 1: # Add new app
+            add_apps(db_path)
+        case 2: # View apps
+            view_applications_ui(db_path)
+        case 3: # Import massive amounts of apps via csv
+            csv_import(db_path)
+        case 4:
+            update_apps(db_path)
+        case 5:
+            view_all_updates(db_path)
+        case 6:
+            render_help()
+        case 7:
+            TUI_end()
+
+# Follow up dialogue with user
+def follow_up_checker(database):
     pass
 
-# ====== Table Renderer =======
+# Table Renderer
 def view_applications_ui(db_path):
     rows = ss.list_applications(db_path)
 
@@ -72,6 +94,28 @@ def view_applications_ui(db_path):
 
     ss.pause()
 
+
+# Help details
+def render_help():
+    pass
+
+# Add Individual items
+def add_apps(database):
+    pass
+
+# Add csv listed inputs
+def csv_import(database):
+    pass
+
+# ======= Updates
+
+# Update apps with lastest info
+def update_apps(database):
+    pass
+
+# view all updates logs
+def view_all_updates(database):
+    pass
 
 # ======= Terminal logic =======
 

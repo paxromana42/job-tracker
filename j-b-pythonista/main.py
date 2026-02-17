@@ -2,6 +2,7 @@ import TUI as tui
 
 # Main function loop
 def main():
+    # Hard coded
     db_path = "database/app-repo.db"
 
     while True:
@@ -10,7 +11,7 @@ def main():
         if not choice_tuple:
             break
 
-        tui.main_menu(choice_tuple)
+        tui.main_menu(choice_tuple, db_path)
 
     tui.TUI_end()
 
