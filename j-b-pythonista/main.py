@@ -1,18 +1,12 @@
-import TUI as tui
+from pathlib import Path
+import TerminalUserInterface as tui
 
-# Main function loop
+
+database_location = Path("database/app-repo.db")
+exports_location = Path("exports")
+
 def main():
-    # Hard coded
-    db_path = "database/app-repo.db"
-
     while True:
-        choice_tuple = tui.TUI_start(db_path)
+        tui.
 
-        if not choice_tuple:
-            break
-
-        tui.main_menu(choice_tuple, db_path)
-
-    tui.TUI_end()
-
-if __name__ == "__main__":    main()
+if __name__ == "__main__": main()
